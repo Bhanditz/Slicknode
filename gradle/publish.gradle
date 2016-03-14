@@ -29,7 +29,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka'
 
-def libName = 'SlickNode'
+def libName = 'Slicknode'
 def libDescription = 'Makes Android Wear apis readable by wrapping them with RxKotlin'
 def mavenPackageType = 'aar'
 def mavenDeveloperId = 'diolor'
@@ -69,7 +69,7 @@ install {
       url libWebsite
 
       groupId group
-      artifactId 'slicknode'
+      artifactId 'slicknode-kotlin'
       version project.versionCode
 
       licenses {

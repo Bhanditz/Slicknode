@@ -30,7 +30,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 
-group 'com.lorentzos.slicknode'
+group 'com.lorentzos,slicknode'
 version project.versionName
 
 android {
