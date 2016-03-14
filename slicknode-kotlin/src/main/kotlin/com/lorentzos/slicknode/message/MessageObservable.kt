@@ -28,15 +28,9 @@ class MessageObservable {
   companion object {
 
     /**
-     * Sends a message to the specified node without any data
+     * Sends a message to the specified node with optional byteArray data
      */
-    fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String) =
-        sendMessage(googleApiClient, nodeId, messagePath, null)
-
-    /**
-     * Sends byte[] data message to the specified node.
-     */
-    fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray?) =
+    fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray? = null) =
         MessageApi.sendMessage(googleApiClient, nodeId, messagePath, bytes).toObservable().map { it.requestId }
 
   }

@@ -36,14 +36,14 @@ class DataItemObservable {
     /**
      * Adds a [DataItem] to the Android Wear network. The updated item is synchronized across all devices.
      */
-    fun putItem(googleApiClient: GoogleApiClient, putRequest: PutDataRequest): Observable<DataApi.DataItemResult> =
-        DataApi.putDataItem(googleApiClient, putRequest).toObservable()
+    fun putItem(googleApiClient: GoogleApiClient, putRequest: PutDataMapRequest): Observable<DataApi.DataItemResult> =
+        putItem(googleApiClient, putRequest.asPutDataRequest())
 
     /**
      * Adds a [DataItem] to the Android Wear network. The updated item is synchronized across all devices.
      */
-    fun putItem(googleApiClient: GoogleApiClient, putRequest: PutDataMapRequest): Observable<DataApi.DataItemResult> =
-        DataApi.putDataItem(googleApiClient, putRequest.asPutDataRequest()).toObservable()
+    fun putItem(googleApiClient: GoogleApiClient, putRequest: PutDataRequest): Observable<DataApi.DataItemResult> =
+        DataApi.putDataItem(googleApiClient, putRequest).toObservable()
 
     /**w
      * Retrieves a single DataItem from the Android Wear network. A fully qualified URI must be
