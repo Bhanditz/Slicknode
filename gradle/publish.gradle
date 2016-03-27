@@ -33,6 +33,8 @@ apply plugin: 'org.jetbrains.dokka'
 group = 'com.lorentzos.slicknode'
 version = project.versionName
 
+def libUser = rootProject.hasProperty('bintray_user') ? bintray_user : "DUMMY_USER"
+def libKey = rootProject.hasProperty('bintray_key') ? bintray_key : "DUMMY_KEY"
 def libName = 'Slicknode'
 def libDescription = 'Makes Android Wear apis readable by wrapping them with RxKotlin'
 def mavenPackageType = 'aar'
@@ -43,9 +45,10 @@ def libWebsite = "https://github.com/diolor/Slicknode"
 def libTrackerUrl = "https://github.com/diolor/Slicknode/issues"
 def libGit = "https://github.com/diolor/Slicknode.git"
 
+
 bintray {
-  user = bintray_user
-  key = bintray_key
+  user = libUser
+  key = libKey
   configurations = ['archives']
   pkg {
     repo = "maven"
