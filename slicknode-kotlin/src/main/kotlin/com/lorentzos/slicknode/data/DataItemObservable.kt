@@ -45,7 +45,7 @@ class DataItemObservable {
     fun putItem(googleApiClient: GoogleApiClient, putRequest: PutDataRequest): Observable<DataApi.DataItemResult> =
         DataApi.putDataItem(googleApiClient, putRequest).toObservable()
 
-    /**w
+    /**
      * Retrieves a single DataItem from the Android Wear network. A fully qualified URI must be
      * specified. The URI's host must be the ID of the node that created the item.
      */
