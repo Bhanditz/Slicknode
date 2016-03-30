@@ -57,7 +57,7 @@ compile 'com.lorentzos.slicknode:slicknode-kotlin:X.Y.Z.PATCH'
 ```
 
 Where "X.Y.Z" are the same version with Google Play Services (e.g. 8.4.1) and ".PATCH" the version:
-e.g. `compile 'com.lorentzos.slicknode:slicknode-kotlin:8.4.1.1'`
+e.g. `compile 'com.lorentzos.slicknode:slicknode-kotlin:8.4.0.3'`
 
 
 
