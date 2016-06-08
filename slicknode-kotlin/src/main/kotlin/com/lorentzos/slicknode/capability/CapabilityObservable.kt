@@ -26,71 +26,67 @@ import com.lorentzos.slicknode.internal.toObservable
  * Contains [CapabilityApi] actions for getting info and updating the Android Wear network with a
  * capability.
  */
-class CapabilityObservable {
+object CapabilityObservable {
 
+  /**
+   * Announces that a capability has become available on the local node.
+   */
+  fun addLocal(googleApiClient: GoogleApiClient, capability: String) =
+      CapabilityApi.addLocalCapability(googleApiClient, capability).toObservable()
 
-  companion object {
+  /**
+   * Announces that a capability is no longer available on the local node.
+   *
+   * Note: this will not remove any capabilities announced in the Manifest for an app.
+   */
+  fun removeLocal(googleApiClient: GoogleApiClient, capability: String) =
+      CapabilityApi.removeLocalCapability(googleApiClient, capability).toObservable()
 
-    /**
-     * Announces that a capability has become available on the local node.
-     */
-    fun addLocal(googleApiClient: GoogleApiClient, capability: String) =
-        CapabilityApi.addLocalCapability(googleApiClient, capability).toObservable()
+  /**
+   * Returns information about all capabilities, including the nodes that declare those capabilities.
+   *
+   * All nodes will be returned.
+   *
+   * The local node will never be returned in the set of nodes.
+   */
+  fun getInfoAll(googleApiClient: GoogleApiClient) =
+      getAllCapabilitiesObservable(googleApiClient, FILTER_ALL)
 
-    /**
-     * Announces that a capability is no longer available on the local node.
-     *
-     * Note: this will not remove any capabilities announced in the Manifest for an app.
-     */
-    fun removeLocal(googleApiClient: GoogleApiClient, capability: String) =
-        CapabilityApi.removeLocalCapability(googleApiClient, capability).toObservable()
+  /**
+   * Returns information about all capabilities, including the nodes that declare those capabilities.
+   *
+   * Only those that are currently reachable by this node will be returned.
+   *
+   * The local node will never be returned in the set of nodes.
+   */
+  fun getInfoReachable(googleApiClient: GoogleApiClient) =
+      getAllCapabilitiesObservable(googleApiClient, FILTER_REACHABLE)
 
-    /**
-     * Returns information about all capabilities, including the nodes that declare those capabilities.
-     *
-     * All nodes will be returned.
-     *
-     * The local node will never be returned in the set of nodes.
-     */
-    fun getInfoAll(googleApiClient: GoogleApiClient) =
-        getAllCapabilitiesObservable(googleApiClient, FILTER_ALL)
+  /**
+   * Returns information about a capability, including the nodes that declare that capability.
+   *
+   * All nodes will be returned.
+   *
+   * The local node will never be returned in the set of nodes.
+   */
+  fun getInfoAll(googleApiClient: GoogleApiClient, capability: String) =
+      getCapability(googleApiClient, capability, FILTER_ALL)
 
-    /**
-     * Returns information about all capabilities, including the nodes that declare those capabilities.
-     *
-     * Only those that are currently reachable by this node will be returned.
-     *
-     * The local node will never be returned in the set of nodes.
-     */
-    fun getInfoReachable(googleApiClient: GoogleApiClient) =
-        getAllCapabilitiesObservable(googleApiClient, FILTER_REACHABLE)
+  /**
+   * Returns information about a capability, including the nodes that declare that capability.
+   *
+   * Only those that are currently reachable by this node will be returned.
+   *
+   * The local node will never be returned in the set of nodes.
+   */
+  fun getInfoReachable(googleApiClient: GoogleApiClient, capability: String) =
+      getCapability(googleApiClient, capability, FILTER_REACHABLE)
 
-    /**
-     * Returns information about a capability, including the nodes that declare that capability.
-     *
-     * All nodes will be returned.
-     *
-     * The local node will never be returned in the set of nodes.
-     */
-    fun getInfoAll(googleApiClient: GoogleApiClient, capability: String) =
-        getCapability(googleApiClient, capability, FILTER_ALL)
+  private fun getAllCapabilitiesObservable(googleApiClient: GoogleApiClient, filter: Int) =
+      CapabilityApi.getAllCapabilities(googleApiClient, filter).toObservable().map { it.allCapabilities }
 
-    /**
-     * Returns information about a capability, including the nodes that declare that capability.
-     *
-     * Only those that are currently reachable by this node will be returned.
-     *
-     * The local node will never be returned in the set of nodes.
-     */
-    fun getInfoReachable(googleApiClient: GoogleApiClient, capability: String) =
-        getCapability(googleApiClient, capability, FILTER_REACHABLE)
+  private fun getCapability(googleApiClient: GoogleApiClient, capability: String, filter: Int) =
+      CapabilityApi.getCapability(googleApiClient, capability, filter).toObservable().map { it.capability }
 
-    private fun getAllCapabilitiesObservable(googleApiClient: GoogleApiClient, filter: Int) =
-        CapabilityApi.getAllCapabilities(googleApiClient, filter).toObservable().map { it.allCapabilities }
-
-    private fun getCapability(googleApiClient: GoogleApiClient, capability: String, filter: Int) =
-        CapabilityApi.getCapability(googleApiClient, capability, filter).toObservable().map { it.capability }
-
-  }
 }
 

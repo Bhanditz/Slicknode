@@ -23,15 +23,12 @@ import com.lorentzos.slicknode.internal.toObservable
 /**
  * Contains actions to send Messages to wear graph nodes.
  */
-class MessageObservable {
+object MessageObservable {
 
-  companion object {
+  /**
+   * Sends a message to the specified node with optional byteArray data
+   */
+  fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray? = null) =
+      MessageApi.sendMessage(googleApiClient, nodeId, messagePath, bytes).toObservable().map { it.requestId }
 
-    /**
-     * Sends a message to the specified node with optional byteArray data
-     */
-    fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray? = null) =
-        MessageApi.sendMessage(googleApiClient, nodeId, messagePath, bytes).toObservable().map { it.requestId }
-
-  }
 }

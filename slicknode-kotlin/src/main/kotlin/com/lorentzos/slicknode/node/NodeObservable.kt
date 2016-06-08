@@ -23,22 +23,18 @@ import com.lorentzos.slicknode.internal.toObservable
 /**
  * Contains actions to get the local and connected nodes.
  */
-class NodeObservable {
+object NodeObservable {
 
-  companion object {
+	/**
+	 * Returns the local node
+	 */
+	fun getLocalNode(googleApiClient: GoogleApiClient) =
+			NodeApi.getLocalNode(googleApiClient).toObservable().map { it.node }
 
-    /**
-     * Returns the local node
-     */
-    fun getLocalNode(googleApiClient: GoogleApiClient) =
-        NodeApi.getLocalNode(googleApiClient).toObservable().map { it.node }
-
-    /**
-     * Returns the connected nodes.
-     */
-    fun getConnectedNodes(googleApiClient: GoogleApiClient) =
-        NodeApi.getConnectedNodes(googleApiClient).toObservable().map { it.nodes }
-
-  }
+	/**
+	 * Returns the connected nodes.
+	 */
+	fun getConnectedNodes(googleApiClient: GoogleApiClient) =
+			NodeApi.getConnectedNodes(googleApiClient).toObservable().map { it.nodes }
 
 }

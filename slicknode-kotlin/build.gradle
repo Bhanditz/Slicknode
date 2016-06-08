@@ -20,6 +20,8 @@ buildscript {
   }
   dependencies {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$project.kotlin_version"
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+
   }
 }
 
@@ -32,7 +34,7 @@ version project.versionName
 
 android {
   compileSdkVersion 23
-  buildToolsVersion "23.0.2"
+  buildToolsVersion "23.0.3"
 
   defaultConfig {
     minSdkVersion 9
