@@ -47,5 +47,5 @@ ext{
 
   targetSDK = 24
   versionCode = 1
-  versionName = "$googleServices.$versionCode"
+  versionName = "2.0.0"
 }
