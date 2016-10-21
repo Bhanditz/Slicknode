@@ -40,12 +40,17 @@ task clean(type: Delete) {
 }
 
 
-ext{
+ext {
+
+  versionMajor = 2
+  versionMinor = 0
+  versionPatch = 0
+
   kotlin_version = '1.0.4'
   rxKotlinVersion = '0.55.0'
   googleServices = '9.6.1'
 
   targetSDK = 24
-  versionCode = 1
-  versionName = "$googleServices.$versionCode"
+  versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
+  versionName = "$versionMajor.$versionMinor.$versionPatch"
 }
