@@ -46,14 +46,6 @@ android {
     main.java.srcDirs += 'src/main/kotlin'
   }
 
-  buildTypes {
-    debug {
-
-    }
-    release {
-
-    }
-  }
 }
 
 dependencies {

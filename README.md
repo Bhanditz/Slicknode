@@ -1,3 +1,5 @@
+ [ ![Download](https://api.bintray.com/packages/ddl449/maven/Slicknode/images/download.svg) ](https://bintray.com/ddl449/maven/Slicknode/_latestVersion)
+
 SlickNode
 =========
 
@@ -53,11 +55,9 @@ The ChannelApi is not yet backported.
 Gradle:
 
 ```gradle
-compile 'com.lorentzos.slicknode:slicknode-kotlin:X.Y.Z.PATCH'
+compile 'com.lorentzos.slicknode:slicknode-kotlin:X.Y.Z'
 ```
 
-Where "X.Y.Z" are the same version with Google Play Services (e.g. 8.4.1) and ".PATCH" the version:
-e.g. `compile 'com.lorentzos.slicknode:slicknode-kotlin:8.4.0.3'`
 
 
 
