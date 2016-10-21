@@ -18,7 +18,8 @@ package com.lorentzos.slicknode.message
 
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.wearable.Wearable.MessageApi
-import com.lorentzos.slicknode.internal.toObservable
+import com.lorentzos.slicknode.internal.toSingle
+import rx.Single
 
 /**
  * Contains actions to send Messages to wear graph nodes.
@@ -28,7 +29,10 @@ object MessageObservable {
   /**
    * Sends a message to the specified node with optional byteArray data
    */
-  fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray? = null) =
-      MessageApi.sendMessage(googleApiClient, nodeId, messagePath, bytes).toObservable().map { it.requestId }
+  fun sendMessage(googleApiClient: GoogleApiClient, nodeId: String, messagePath: String, bytes: ByteArray? = null): Single<Int> {
+    return MessageApi.sendMessage(googleApiClient, nodeId, messagePath, bytes)
+        .toSingle()
+        .map { it.requestId }
+  }
 
 }

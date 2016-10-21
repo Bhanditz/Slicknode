@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package com.lorentzos.slicknode.capability
 
 import com.google.android.gms.common.api.GoogleApiClient

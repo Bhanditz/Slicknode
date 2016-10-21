@@ -16,27 +16,19 @@
 
 package com.lorentzos.slicknode.internal
 
-import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.common.api.Result
-import rx.Observable
+import com.lorentzos.slicknode.WearOperationException
+import rx.Subscriber
 
 /**
- * An [Observable] that returns a [Result] for a given [PendingResult] action.
+ * A lambda which emits multiple items.
  */
-class ResultObservable<T : Result> : Observable<T> {
-
-  internal constructor(action: PendingResult<T>) : super(OnSubscribe {
-    if (it.isUnsubscribed) {
-      return@OnSubscribe
+internal class MultipleResultsLambda<in T : Result>(private val subscriber: Subscriber<in T>) : (T) -> Unit {
+  override fun invoke(child: T) {
+    if (!child.status.isSuccess) {
+      subscriber.onError(WearOperationException(child))
     }
 
-    action.setResultCallback(SingleResultLambda(it))
-  })
-
+    subscriber.onNext(child)
+  }
 }
-
-/**
- * Converts a given [PendingResult] into an [Observable].
- */
-fun <R : Result> PendingResult<R>.toObservable() = ResultObservable(this)
-

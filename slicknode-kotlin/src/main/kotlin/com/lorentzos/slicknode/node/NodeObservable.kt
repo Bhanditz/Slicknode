@@ -17,24 +17,34 @@
 package com.lorentzos.slicknode.node
 
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.Wearable.NodeApi
-import com.lorentzos.slicknode.internal.toObservable
+import com.lorentzos.slicknode.internal.toSingle
+import rx.Single
 
 /**
  * Contains actions to get the local and connected nodes.
  */
 object NodeObservable {
 
-	/**
-	 * Returns the local node
-	 */
-	fun getLocalNode(googleApiClient: GoogleApiClient) =
-			NodeApi.getLocalNode(googleApiClient).toObservable().map { it.node }
+  /**
+   * Returns the local node
+   */
+  @Suppress("unused")
+  fun getLocalNode(googleApiClient: GoogleApiClient): Single<Node> {
+    return NodeApi.getLocalNode(googleApiClient)
+        .toSingle()
+        .map { it.node }
+  }
 
-	/**
-	 * Returns the connected nodes.
-	 */
-	fun getConnectedNodes(googleApiClient: GoogleApiClient) =
-			NodeApi.getConnectedNodes(googleApiClient).toObservable().map { it.nodes }
+  /**
+   * Returns the connected nodes.
+   */
+  @Suppress("unused")
+  fun getConnectedNodes(googleApiClient: GoogleApiClient): Single<MutableList<Node>> {
+    return NodeApi.getConnectedNodes(googleApiClient)
+        .toSingle()
+        .map { it.nodes }
+  }
 
 }

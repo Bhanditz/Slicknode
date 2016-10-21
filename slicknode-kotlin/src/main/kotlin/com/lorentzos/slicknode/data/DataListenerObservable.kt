@@ -20,7 +20,7 @@ import android.net.Uri
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.Wearable.DataApi
-import com.lorentzos.slicknode.internal.SingleResultLambda
+import com.lorentzos.slicknode.internal.MultipleResultsLambda
 import rx.Observable
 import rx.subscriptions.Subscriptions
 
@@ -36,7 +36,7 @@ class DataListenerObservable : Observable<DataEventBuffer> {
       return@OnSubscribe
     }
 
-    val listener = SingleResultLambda(it)
+    val listener = MultipleResultsLambda(it)
 
     DataApi.addListener(googleApiClient, listener)
 
@@ -48,7 +48,7 @@ class DataListenerObservable : Observable<DataEventBuffer> {
       return@OnSubscribe
     }
 
-    val listener = SingleResultLambda(it)
+    val listener = MultipleResultsLambda(it)
 
     DataApi.addListener(googleApiClient, listener, uri, filter)
 

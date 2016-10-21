@@ -16,20 +16,27 @@
 
 package com.lorentzos.slicknode.internal
 
+import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.common.api.Result
-import com.lorentzos.slicknode.WearOperationException
-import rx.SingleSubscriber
+import rx.Observable
+import rx.Single
 
 /**
- * A lambda which emits a single item and then completes.
+ * An [Observable] that returns a [Result] for a given [PendingResult] action.
  */
-internal class SingleResultLambda<in T : Result>(private val subscriber: SingleSubscriber<in T>) : (T) -> Unit {
-  override fun invoke(child: T) {
-    if (!child.status.isSuccess) {
+class SingleResult<T : Result> : Single<T> {
 
-      subscriber.onError(WearOperationException(child))
+  internal constructor(action: PendingResult<T>) : super(OnSubscribe {
+    if (it.isUnsubscribed) {
+      return@OnSubscribe
     }
 
-    subscriber.onSuccess(child)
-  }
+    action.setResultCallback(SingleResultLambda(it))
+  })
+
 }
+
+/**
+ * Converts a given [PendingResult] into an [Single].
+ */
+fun <R : Result> PendingResult<R>.toSingle() = SingleResult(this)
