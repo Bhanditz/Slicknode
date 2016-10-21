@@ -21,7 +21,8 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.7"
+    classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.9"
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
   }
 }
 
@@ -46,6 +47,50 @@ def libTrackerUrl = "https://github.com/diolor/Slicknode/issues"
 def libGit = "https://github.com/diolor/Slicknode.git"
 
 
+
+def projectPomSetup = {
+  packaging mavenPackageType
+  name libName
+  url libWebsite
+
+  licenses {
+    license {
+      name 'The Apache Software License, Version 2.0'
+      url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    }
+  }
+  developers {
+    developer {
+      id mavenDeveloperId
+      name mavenDeveloperName
+      email mavenDeveloperEmail
+    }
+  }
+  scm {
+    connection libGit
+    developerConnection libGit
+    url libWebsite
+  }
+}
+
+
+install {
+  repositories.mavenInstaller {
+    pom.project projectPomSetup
+  }
+}
+
+task installLocaly(type: Upload) {
+  configuration = configurations.archives
+  repositories.mavenDeployer {
+    pom.project projectPomSetup
+
+    repository(url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
+    setUniqueVersion false
+  }
+}
+
+
 bintray {
   user = libUser
   key = libKey
@@ -59,8 +104,8 @@ bintray {
     vcsUrl = libGit
     licenses = ['Apache-2.0']
     labels = ['aar', 'android', 'wear', 'rxkotlin', 'kotlin', 'node']
-    version {
-      name = versionName
+    pkg.version {
+      pkg.version.name = versionName
       released =
           new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ", Locale.ENGLISH).format(new Date())
       vcsTag = versionName
@@ -68,34 +113,6 @@ bintray {
   }
 }
 
-install {
-  repositories.mavenInstaller {
-    pom.project {
-      packaging mavenPackageType
-      name libName
-      url libWebsite
-
-      licenses {
-        license {
-          name 'The Apache Software License, Version 2.0'
-          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-        }
-      }
-      developers {
-        developer {
-          id mavenDeveloperId
-          name mavenDeveloperName
-          email mavenDeveloperEmail
-        }
-      }
-      scm {
-        connection libGit
-        developerConnection libGit
-        url libWebsite
-      }
-    }
-  }
-}
 
 
 task sourcesJar(type: Jar) {
