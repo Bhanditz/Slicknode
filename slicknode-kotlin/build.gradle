@@ -33,8 +33,8 @@ group 'com.lorentzos.slicknode'
 version project.versionName
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.3"
+  compileSdkVersion project.targetSDK
+  buildToolsVersion '24.0.2'
 
   defaultConfig {
     minSdkVersion 9
@@ -45,10 +45,19 @@ android {
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
+
+  buildTypes {
+    debug {
+
+    }
+    release {
+
+    }
+  }
 }
 
 dependencies {
-  compile "com.google.android.gms:play-services-wearable:$project.googleServices"
+  provided "com.google.android.gms:play-services-wearable:$project.googleServices"
   compile "org.jetbrains.kotlin:kotlin-stdlib:$project.kotlin_version"
   compile "io.reactivex:rxkotlin:$project.rxKotlinVersion"
 }
